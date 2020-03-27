@@ -39,3 +39,5 @@ temp_v = tf.constant([[1, 0],
                       [1000, 6]], dtype=tf.float32)
 temp_q = tf.constant([[0, 10, 0]], dtype=tf.float32)
 test_scaled_dot_product_attention(temp_q, temp_k, temp_v)
+temp_q = tf.constant([[0, 0, 10]], dtype=tf.float32)
+test_scaled_dot_product_attention(temp_q, temp_k, temp_v)

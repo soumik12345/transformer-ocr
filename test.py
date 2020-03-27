@@ -56,3 +56,8 @@ temp_mha = MultiHeadAttention(d_model=512, n_heads=8)
 y = tf.random.uniform((1, 60, 512))  # (batch_size, encoder_sequence, d_model)
 out, attn = temp_mha(y, k=y, q=y)
 print(out.shape, attn.shape)
+
+
+# Point-wise Feed Forward Network
+sample_ffn = point_wise_feed_forward_network(512, 2048)
+print(sample_ffn(tf.random.uniform((64, 50, 512))).shape)

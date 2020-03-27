@@ -40,3 +40,10 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         concat_attention = tf.reshape(scaled_attention, (batch_size, -1, self.d_model))
         output = self.dense(concat_attention)
         return output, attention_weights
+
+
+def point_wise_feed_forward_network(d_model, dff):
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(dff, activation='relu'),
+        tf.keras.layers.Dense(d_model)
+    ])

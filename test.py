@@ -3,6 +3,7 @@ from src.utils import *
 from src.blocks import *
 from src.layers import *
 import tensorflow as tf
+from src.encoder import *
 from matplotlib import pyplot as plt
 
 
@@ -52,12 +53,18 @@ from matplotlib import pyplot as plt
 
 
 # Test Multi Head Attention
-temp_mha = MultiHeadAttention(d_model=512, n_heads=8)
-y = tf.random.uniform((1, 60, 512))  # (batch_size, encoder_sequence, d_model)
-out, attn = temp_mha(y, k=y, q=y)
-print(out.shape, attn.shape)
+# temp_mha = MultiHeadAttention(d_model=512, n_heads=8)
+# y = tf.random.uniform((1, 60, 512))  # (batch_size, encoder_sequence, d_model)
+# out, attn = temp_mha(y, k=y, q=y)
+# print(out.shape, attn.shape)
 
 
 # Point-wise Feed Forward Network
-sample_ffn = point_wise_feed_forward_network(512, 2048)
-print(sample_ffn(tf.random.uniform((64, 50, 512))).shape)
+# sample_ffn = point_wise_feed_forward_network(512, 2048)
+# print(sample_ffn(tf.random.uniform((64, 50, 512))).shape)
+
+
+# Encoder Layer
+sample_encoder_layer = EncoderLayer(512, 8, 2048)
+sample_encoder_layer_output = sample_encoder_layer(tf.random.uniform((64, 43, 512)), False)
+print(sample_encoder_layer_output.shape)

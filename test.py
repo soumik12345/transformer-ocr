@@ -4,6 +4,7 @@ from src.blocks import *
 from src.layers import *
 import tensorflow as tf
 from src.encoder import *
+from src.decoder import *
 from matplotlib import pyplot as plt
 
 
@@ -68,3 +69,10 @@ from matplotlib import pyplot as plt
 sample_encoder_layer = EncoderLayer(512, 8, 2048)
 sample_encoder_layer_output = sample_encoder_layer(tf.random.uniform((64, 43, 512)), False)
 print(sample_encoder_layer_output.shape)
+
+
+# Decoder Layer
+sample_decoder_layer = DecoderLayer(512, 8, 2048)
+sample_decoder_layer_output, _, _ = sample_decoder_layer(
+    tf.random.uniform((64, 50, 512)), sample_encoder_layer_output, False)
+print(sample_decoder_layer_output.shape)

@@ -76,3 +76,14 @@ sample_decoder_layer = DecoderLayer(512, 8, 2048)
 sample_decoder_layer_output, _, _ = sample_decoder_layer(
     tf.random.uniform((64, 50, 512)), sample_encoder_layer_output, False)
 print(sample_decoder_layer_output.shape)
+
+
+# Encoder
+sample_encoder = Encoder(
+    n_layers=2, d_model=512, n_heads=8,
+    dff=2048, input_vocab_size=8500,
+    maximum_position_encoding=10000
+)
+temp_input = tf.random.uniform((64, 62), dtype=tf.int64, minval=0, maxval=200)
+sample_encoder_output = sample_encoder(temp_input, training=False)
+print(sample_encoder_output.shape)

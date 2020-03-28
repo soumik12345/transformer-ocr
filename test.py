@@ -1,10 +1,7 @@
 import numpy as np
 from src.utils import *
-from src.blocks import *
 from src.layers import *
 import tensorflow as tf
-from src.encoder import *
-from src.decoder import *
 from matplotlib import pyplot as plt
 
 
@@ -14,15 +11,17 @@ from matplotlib import pyplot as plt
 # y = model(x)
 # print(y.shape)
 
+
 # Test Positional Encoding
-# pos_encoding = positional_encoding(36, 256)
-# plt.pcolormesh(pos_encoding[0], cmap='RdBu')
-# plt.xlabel('Depth')
-# plt.xlim((0, 256))
-# plt.ylabel('Position')
-# plt.colorbar()
-# plt.title('Positional Encoding Test')
-# plt.show()
+pos_encoding = positional_encoding(36, 256)
+print(pos_encoding.shape)
+plt.pcolormesh(pos_encoding, cmap='RdBu')
+plt.xlabel('Depth')
+plt.xlim((0, 256))
+plt.ylabel('Position')
+plt.colorbar()
+plt.title('Positional Encoding Test')
+plt.show()
 
 
 # Test Scaled Dot Product Attention
@@ -66,24 +65,24 @@ from matplotlib import pyplot as plt
 
 
 # Encoder Layer
-sample_encoder_layer = EncoderLayer(512, 8, 2048)
-sample_encoder_layer_output = sample_encoder_layer(tf.random.uniform((64, 43, 512)), False)
-print(sample_encoder_layer_output.shape)
-
-
-# Decoder Layer
-sample_decoder_layer = DecoderLayer(512, 8, 2048)
-sample_decoder_layer_output, _, _ = sample_decoder_layer(
-    tf.random.uniform((64, 50, 512)), sample_encoder_layer_output, False)
-print(sample_decoder_layer_output.shape)
-
-
-# Encoder
-sample_encoder = Encoder(
-    n_layers=2, d_model=512, n_heads=8,
-    dff=2048, input_vocab_size=8500,
-    maximum_position_encoding=10000
-)
-temp_input = tf.random.uniform((64, 62), dtype=tf.int64, minval=0, maxval=200)
-sample_encoder_output = sample_encoder(temp_input, training=False)
-print(sample_encoder_output.shape)
+# sample_encoder_layer = EncoderLayer(512, 8, 2048)
+# sample_encoder_layer_output = sample_encoder_layer(tf.random.uniform((64, 43, 512)), False)
+# print(sample_encoder_layer_output.shape)
+#
+#
+# # Decoder Layer
+# sample_decoder_layer = DecoderLayer(512, 8, 2048)
+# sample_decoder_layer_output, _, _ = sample_decoder_layer(
+#     tf.random.uniform((64, 50, 512)), sample_encoder_layer_output, False)
+# print(sample_decoder_layer_output.shape)
+#
+#
+# # Encoder
+# sample_encoder = Encoder(
+#     n_layers=2, d_model=512, n_heads=8,
+#     dff=2048, input_vocab_size=8500,
+#     maximum_position_encoding=10000
+# )
+# temp_input = tf.random.uniform((64, 62), dtype=tf.int64, minval=0, maxval=200)
+# sample_encoder_output = sample_encoder(temp_input, training=False)
+# print(sample_encoder_output.shape)

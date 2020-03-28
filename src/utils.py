@@ -2,17 +2,18 @@ import numpy as np
 import tensorflow as tf
 
 
-def get_angles(position, i, d_model):
-    angle_rates = 1 / np.power(10000, (2 * (i // 2)) / np.float32(d_model))
-    return position * angle_rates
+def positional_encoding(max_length, model_size):
 
+    def compute_pe(position):
+        encoding = np.zeros((1, model_size))
+        for i in range(model_size):
+            if i % 2 == 0:
+                encoding[:, i] = np.sin(position / 10000 ** (i / model_size))
+            else:
+                encoding[:, i] = np.cos(position / 10000 ** ((i - 1) / model_size))
+        return encoding
 
-def positional_encoding(pos, d):
-    angle_rads = get_angles(
-        np.arange(pos)[:, np.newaxis],
-        np.arange(d)[np.newaxis, :],d
-    )
-    angle_rads[:, 0::2] = np.sin(angle_rads[:, 0::2])
-    angle_rads[:, 1::2] = np.cos(angle_rads[:, 1::2])
-    pos_encoding = angle_rads[np.newaxis, ...]
-    return tf.cast(pos_encoding, dtype=tf.float32)
+    embedding = [compute_pe(i) for i in range(max_length)]
+    embedding = np.concatenate(embedding, axis=0)
+    embedding = tf.constant(embedding, dtype=tf.float32)
+    return embedding
